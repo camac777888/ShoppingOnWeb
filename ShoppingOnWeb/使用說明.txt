@@ -1,0 +1,77 @@
+簡單說明
+
+模板設計
+針對JDBC設計模板來減少大量重複性代碼
+jdbcTemplate.java			模板
+DataAccessException.java	自定義異常
+DBHelper.java				
+PreparedStatement.java		
+RowCallHandler.java		加載數據庫驅動程式與數據庫連接
+jdbc.properties			配置信息
+資訊資源層
+使用MYSQL建立shoppingonlinemall數據庫，並建立:
+
+Customers	用戶表
+Orders		訂單表
+Inventory		商品表
+ShoppingCart	購物車
+
+資料訪問層
+對應數據庫中的表建立實體類(建立容器)
+在Shopping.domain下建立(包含屬性，get,set方法)
+Customer.java
+Inventory.java
+Orders.java
+ShoppingCart.java
+
+建立與數據庫連接的接口(介面)與實作介面類別， 使用JUnit 5對實作介面類別進行單元測試
+Dao為與數據庫連接的介面與方法(對數據庫的增刪查改方法)
+	CustomerDao 	,
+	InventoryDao		
+OrdersDao	 	
+ShoppingCartDao  
+DaoImpJdbc為實作與數據庫連接的介面與方法的類別
+CustomerDaoImpJdbc		
+InventoryDaoImpJdbc
+OrdersDaoImpJdbc
+ShoppingCartDaoImpJdbc
+使用JUnit 5對實作介面類別進行單元測試
+CustomerDaoImpJdbcTest		
+InventoryDaoImpJdbcTest
+OrdersDaoImpJdbcTest
+ShoppingCartDaoImpJdbcTest
+業務邏輯層
+行為分析
+1.用戶登入，註冊
+2.商品列表查詢，商品詳細信息查詢
+3.放入購物車，提交訂單
+
+建立3個業務邏輯介面與實作介面方法的類別
+CustomerService
+InventoryService
+OrderService
+實作介面方法的類別
+CustomerServiceImp
+InventoryService Imp
+OrderServiceImp
+使用JUnit 5對實作介面類別進行單元測試
+CustomerServiceImp
+InventoryService Imp
+OrderServiceImp
+展示層
+控制器(Servlet)
+用於接收用戶請求，執行相對應的行為(網頁跳轉、參數傳遞等)
+Controller 
+過濾器(Filter)
+CharacterEncodingFilter
+解決從request取得的參數亂碼問題，這裡統一設置為UTF-8
+LoginCheckFilter
+	防止用戶未登入就能訪問的行為(提交訂單等)
+Jsp
+customer_reg.jsp 	會員註冊
+login.jsp			會員登入
+main.jsp			會員大廳
+goods_list.jsp		商品列表
+goods_detail.jsp	商品詳細資料	
+cart.jsp			購物車
+order_finish.jsp	訂單成功頁面
