@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+
+  <filter>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<filter-class>shopping.web.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<filter-class>shopping.web.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<url-pattern>*.jsp</url-pattern>
+  	<url-pattern>/shopping/web/Controller.java</url-pattern>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>Controller</servlet-name>
+  	<servlet-class>shopping.web.Controller</servlet-class>
+  	<init-param>
+  		<param-name>pageSize</param-name>
+  		<param-value>20</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Controller</servlet-name>
+  	<url-pattern>/controller</url-pattern>
+  </servlet-mapping></web-app>
