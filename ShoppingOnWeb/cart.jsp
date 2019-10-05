@@ -79,6 +79,7 @@
 <table width="100%" border="0" align="center" class="threeboder">
     <tr bgcolor="#A5D3FF">
         <td height="50" align="center" class="theader">商品名稱</td>
+        <td width="15%" align="center" class="theader">取消</td>
         <td width="8%" align="center" class="theader">數量</td>
         <td width="15%" align="center" class="theader">單價</td>
         <td width="15%" align="center" class="theader">小計</td>
@@ -86,6 +87,10 @@
     <c:forEach var="cow" items="${cart}">
     <tr>    
         <td height="50" align="left" class="trow">&nbsp;&nbsp;${cow.goodsname}</td>
+        
+        
+         <td align="center" class="trow">&yen;<a href="controller?action=delete&id=${cow.goodsid}">刪除</a></td>
+         
         <td align="center" class="trow">
             <input name="quantity_${cow.goodsid}" type="text" value="${cow.quantity}" onblur="calc(${cow.goodsid}, this)"/>
         </td>
