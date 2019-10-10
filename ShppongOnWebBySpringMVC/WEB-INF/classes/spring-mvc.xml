@@ -42,6 +42,12 @@
 				<mvc:mapping path="/customer/reg.action"/>
 				<bean class="onlinecom.ben.intercepter.MyIntercepter"/>
 			</mvc:interceptor>
+			
+			<mvc:interceptor>
+				<!--攔截路徑-->
+				<mvc:mapping path="/customer/login.action"/>
+				<bean class="onlinecom.ben.intercepter.LoginIntercepter"/>
+			</mvc:interceptor>
 		</mvc:interceptors>
       
         
