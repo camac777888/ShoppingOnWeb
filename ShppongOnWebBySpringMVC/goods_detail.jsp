@@ -59,7 +59,7 @@
       </table>
       <br>
       <br>
-      <div><a href="controller?action=add&pagename=detail&id=${inventory.id}&name=${inventory.name}&price=${inventory.price}">
+      <div><a href="${pageContext.request.contextPath}/customer/add/detail/${inventory.id}.action">
       <img src="images/button.jpg"/></a></div></td>
   </tr>
 </table>

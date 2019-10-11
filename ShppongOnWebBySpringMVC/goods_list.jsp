@@ -61,7 +61,7 @@
     <td class="col1"><a href="${pageContext.request.contextPath}/customer/detail/${goods.id}.action">
     	${goods.description}</a></td>
     <td class="col2">${goods.price}</td>
-    <td class="col3"><a href="${pageContext.request.contextPath}/customer/add/list/${goods.id}/${goods.price}.action">添加到購物車</a></td>
+    <td class="col3"><a href="${pageContext.request.contextPath}/customer/add/list/${goods.id}.action">添加到購物車</a></td>
   </tr> 
   </c:forEach>
 

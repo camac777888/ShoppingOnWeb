@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import shopping.dao.InventoryDao;
 import shopping.dao.OrderDao;
 import shopping.dao.ShoppingCartDao;
@@ -14,7 +16,7 @@ import shopping.domain.Inventory;
 import shopping.domain.Orders;
 import shopping.domain.ShoppingCart;
 import shopping.service.OrderService;
-
+@Service
 public class OrderServiceImp implements OrderService{
 	InventoryDao inventorydao = new InventoryDaoImpJdbc();
 	OrderDao orderdao =new OrderDaoImpJdbc();

@@ -39,7 +39,7 @@ a:hover {
 </div>
 <hr width="100%" />
 <div>
-  <p class="text1"> <img src="images/mycar1.jpg" align="absmiddle"  /> <a href="controller?action=cart">購物車</a> </p>
+  <p class="text1"> <img src="images/mycar1.jpg" align="absmiddle"  /> <a href="${pageContext.request.contextPath}/customer/cart.action">購物車</a> </p>
   <p class="text2">把感興趣的商品放入購物車中</p>
 </div>
 <%@include file="footer.jsp" %>
