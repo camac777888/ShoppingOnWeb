@@ -145,10 +145,11 @@ public String detail(@PathVariable(value="id")long goodsid,Model model) {
 	}
 
 
-@RequestMapping(value="/add/{pagename}/{id}/{name}/{price}",method= RequestMethod.GET)
-public String add(@PathVariable(value="id") String pagename,@PathVariable Long id,@PathVariable String name,
-		@PathVariable Double price,Model model, HttpSession session) {
+@RequestMapping(value="/add/{pagename}/{id}/{price}",method= RequestMethod.GET)
+public String add(@PathVariable(value="pagename") String pagename,@PathVariable(value="id") Long id,
+		@PathVariable(value="price")Double price,Model model, HttpSession session) {
 	
+	Inventory inventory= inventoryService.InventoryDetail(id);
 	List<Map<String,Object>> cart =(List<Map<String, Object>>) session.getAttribute("cart");	
 		
 	if (cart==null) { 								//	第一次加入購物車
@@ -168,10 +169,9 @@ public String add(@PathVariable(value="id") String pagename,@PathVariable Long i
             }
         }
         	if (flag == 0) {										//	購物車中沒有同種商品
-            Map<String, Object> item = new HashMap<>();				// item結構為Map [商品id，商品名稱，價格，數量]
-            
+            Map<String, Object> item = new HashMap<>();				// item結構為Map [商品id，商品名稱，價格，數量]											
             item.put("goodsid", id);
-            item.put("goodsname",name);
+            item.put("goodsname",inventory.getName());
             item.put("quantity", 1);
             item.put("price",price);
             cart.add(item); 		
@@ -190,7 +190,7 @@ public String add(@PathVariable(value="id") String pagename,@PathVariable Long i
 	                
 	                
 	            } else if (pagename.equals("detail")) {				//	從商商品詳細資訊頁面請求
-	            	Inventory inventory= inventoryService.InventoryDetail(id);
+	            	
 	            	model.addAttribute("inventory",inventory);		//需要得到完整資訊來輸出商品資料
 	            	return "forward:/goods_detail.jsp";
 
@@ -202,10 +202,3 @@ public String add(@PathVariable(value="id") String pagename,@PathVariable Long i
 }
 
 }	
-
-
-
-
-
-
-
