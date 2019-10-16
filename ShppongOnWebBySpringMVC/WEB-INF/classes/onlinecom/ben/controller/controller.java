@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import shopping.domain.Customer;
 import shopping.domain.Inventory;
+import shopping.service.CartService;
 import shopping.service.CustomerService;
 import shopping.service.InventoryService;
 import shopping.service.OrderService;
@@ -33,6 +34,8 @@ public class controller {
 	private InventoryService inventoryService;
 	@Resource
 	private OrderService orderService;
+	@Resource
+	private CartService cartService;
 	
 	private int totalPageNumber = 0;  	//	總頁數
     private int pageSize =20;			//	每頁行數
@@ -163,30 +166,13 @@ public String add(@PathVariable(value="pagename") String pagename,
 		@PathVariable(value="id") Long id,Model model, HttpSession session) {	
 	Inventory inventory= inventoryService.InventoryDetail(id);
 	List<Map<String,Object>> cart =(List<Map<String, Object>>) session.getAttribute("cart");		
-		if (cart==null) { 							//	第一次加入購物車
+	if (cart==null) { 							//	第一次加入購物車
 		cart = new ArrayList<Map<String,Object>>();
-	session.setAttribute("cart", cart);
+		session.setAttribute("cart", cart);
 	}
-		int flag = 0;								//判定購物車內是否有同種商品
-        for (Map<String, Object> item : cart) {	   	
-            Long goodsid2=Long.valueOf(String.valueOf(item.get("goodsid")));     
-            if (id.equals(goodsid2)) {				//購物車中有同種商品
-                Integer quantity = (Integer) item.get("quantity");	
-                quantity++;
-                item.put("quantity", quantity);
-                flag++;
-            }
-        }
-        	if (flag == 0) {										//	購物車中沒有同種商品
-            Map<String, Object> item = new HashMap<>();												
-            item.put("goodsid", id);
-            item.put("goodsname",inventory.getName());
-            item.put("quantity", 1);
-            item.put("price",inventory.getPrice());
-            cart.add(item); 		
-        }
-        	 System.out.println(cart);								//	後台觀察
-	
+		cartService.cartjudgement(cart,id,inventory);
+		 System.out.println(cart);					//	後台觀察
+
         	 if (pagename.equals("list")) {							//	從商品列表頁面請求
 	                int start = (currentPage - 1) * pageSize;
 	                int end = currentPage * pageSize;
@@ -241,28 +227,14 @@ public String cart(HttpSession session,Model model) {
 @RequestMapping(value="/delete/{goodsid}",method=RequestMethod.GET)
 public String delete(@PathVariable(value="goodsid")Long id,HttpSession session,Model model) {	
 	List<Map<String,Object>> cart =(List<Map<String, Object>>) session.getAttribute("cart");
-	List<Map<String,Object>> cart1 = new ArrayList<Map<String,Object>>();
 	double	total = 0.0;
-	if (cart !=null) {
-	 for (Map<String, Object> item : cart) {
-		 Long goodsid2=Long.valueOf(String.valueOf(item.get("goodsid")));     
-	        if (id.equals(goodsid2)) {
-	        	continue ;
-	        	}
-	   	 Integer quantity = (Integer) item.get("quantity");
-        	Double price = (Double) item.get("price");
-            double subtotal = price * quantity;
-            total +=subtotal;
-	        cart1.add(item);
-	 }  
+	List<Map<String,Object>> cart1 = cartService.cartdelete(cart, id, total);
 	 session.removeAttribute("cart");
-
-		model.addAttribute("total", total);
-		
+		model.addAttribute("total", total);	
 		session.setAttribute("cart", cart1);
-	}
 	return "forward:/cart.jsp";
 }
+
 /**
  * 提交訂單
  * @param session
