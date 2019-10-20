@@ -8,5 +8,5 @@ import shopping.domain.Inventory;
 
 public interface CartService {
 	void cartjudgement(List<Map<String, Object>> cart,Long id,Inventory inventory);
-	List<Map<String,Object>> cartdelete(List<Map<String, Object>> cart, Long id,double total);
+	List<Map<String,Object>> cartdelete(List<Map<String, Object>> cart, Long id);
 }
