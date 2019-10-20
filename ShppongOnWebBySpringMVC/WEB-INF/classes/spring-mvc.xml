@@ -15,7 +15,7 @@
 	<contenxt:component-scan base-package="onlinecom.ben,shopping"></contenxt:component-scan>
 	<!-- 配置新的HandlerMapping和HandlerAdapter -->
 	<mvc:annotation-driven conversion-service="conversionServiceFactoryBean"></mvc:annotation-driven>
-	
+		
     	<!-- 自定義類型轉換器 -->
 	<bean id="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
    		<!-- 轉換器集合 -->
@@ -48,7 +48,18 @@
 				<mvc:mapping path="/customer/login.action"/>
 				<bean class="onlinecom.ben.intercepter.LoginIntercepter"/>
 			</mvc:interceptor>
-		</mvc:interceptors>
+		
       
-        
-        </beans>
+   <!--   <mvc:interceptor>-->
+			  	<!--攔截路徑-->
+			<!--	<mvc:mapping path="/customer/add/**.action" />-->
+			<!--  	<bean class="onlinecom.ben.intercepter.ListIntercepter"/>-->
+		<!--  	</mvc:interceptor>-->
+		
+		 </mvc:interceptors>
+		<import resource="applicationContext.xml" />
+
+
+
+
+</beans>
