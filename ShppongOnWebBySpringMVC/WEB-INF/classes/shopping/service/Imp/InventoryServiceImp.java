@@ -10,11 +10,15 @@ import shopping.dao.InventoryDao;
 import shopping.dao.imp.InventoryDaoImpJdbc;
 import shopping.domain.Inventory;
 import shopping.service.InventoryService;
-@Service(value="inventoryService")
+
 public class InventoryServiceImp implements InventoryService{
-	@Resource
+
 	InventoryDao inventorydao ;
 	
+	public void setInventorydao(InventoryDao inventorydao) {
+		this.inventorydao = inventorydao;
+	}
+
 	@Override 
 	public List<Inventory> SearchInventoryAll() {
 		

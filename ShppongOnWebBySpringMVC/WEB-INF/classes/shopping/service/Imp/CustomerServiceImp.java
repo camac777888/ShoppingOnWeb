@@ -1,17 +1,19 @@
 package shopping.service.Imp;
 
-import org.springframework.stereotype.Service;
-
 import shopping.dao.CustomerDao;
-import shopping.dao.imp.CustomerDaoImpJdbc;
 import shopping.domain.Customer;
 import shopping.service.CustomerService;
 import shopping.service.ServiceException;
-@Service(value = "CustomerService")
+
 public class CustomerServiceImp implements CustomerService {
 
-	private CustomerDao customerDao = new CustomerDaoImpJdbc();
+	private CustomerDao customerDao;
 	
+	
+	public void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
+	}
+
 	@Override
 	public boolean login(Customer customer) {
 		/*	由表示層傳入customer取出其中id到數據庫按主鍵查詢，查詢結果返回至dbcustomer

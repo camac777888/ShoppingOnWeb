@@ -21,10 +21,32 @@ import shopping.service.InventoryService;
 import shopping.service.OrderService;
 @Service
 public class OrderServiceImp implements OrderService{
-	InventoryDao inventorydao = new InventoryDaoImpJdbc();
-	OrderDao orderdao =new OrderDaoImpJdbc();
-	ShoppingCartDao shoppingCartdao = new ShoppingCartDaoImpJdbc();
-	InventoryService inventoryService =new InventoryServiceImp();
+	InventoryDao inventorydao ;
+	OrderDao orderdao ;
+	ShoppingCartDao shoppingCartdao ;
+	InventoryService inventoryService ;
+	
+	
+	public void setInventorydao(InventoryDao inventorydao) {
+		this.inventorydao = inventorydao;
+	}
+
+
+	public void setOrderdao(OrderDao orderdao) {
+		this.orderdao = orderdao;
+	}
+
+
+	public void setShoppingCartdao(ShoppingCartDao shoppingCartdao) {
+		this.shoppingCartdao = shoppingCartdao;
+	}
+
+
+	public void setInventoryService(InventoryService inventoryService) {
+		this.inventoryService = inventoryService;
+	}
+
+
 	@Override
 	public String SubmitOrder(List<Map<String, Object>> cart) {
 		/*	
