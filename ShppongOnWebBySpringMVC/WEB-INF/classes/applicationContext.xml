@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+ 	   xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context 
+	    http://www.springframework.org/schema/context/spring-context.xsd">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/shoppingonlinemall?serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="12345"></property>
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property></bean>
+	<bean id="customerdao" class="shopping.dao.imp.CustomerDaoImpJdbc">
+		<property name="tem" ref="jdbcTemplate"></property></bean>
+	<bean id="inventoryDao" class="shopping.dao.imp.InventoryDaoImpJdbc">
+		<property name="tem" ref="jdbcTemplate"></property></bean>
+		
+	<bean id="orderDao" class="shopping.dao.imp.OrderDaoImpJdbc">
+		<property name="tem" ref="jdbcTemplate"></property></bean>
+		
+	<bean id="shoppingCartDao" class="shopping.dao.imp.ShoppingCartDaoImpJdbc">
+		<property name="tem" ref="jdbcTemplate"></property></bean>
+		
+	<bean id="customerService" class="shopping.service.Imp.CustomerServiceImp">
+		<property name="customerDao" ref="customerdao"></property></bean>
+	<bean id="inventoryService" class="shopping.service.Imp.InventoryServiceImp">
+		<property name="inventorydao" ref="inventoryDao"></property></bean>
+
+	<bean id="orderService" class="shopping.service.Imp.OrderServiceImp">
+		<property name="inventorydao" ref="inventoryDao"></property>
+		<property name="orderdao" ref="orderDao"></property>
+		<property name="shoppingCartdao" ref="shoppingCartDao"></property>
+		<property name="inventoryService" ref="inventoryService"></property>
+		</bean>
+
+
+
+</beans>
