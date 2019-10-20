@@ -39,22 +39,17 @@ public class CartServiceImp implements CartService{
 				
 	
 }
-
 	@Override
-	public ArrayList<Map<String,Object>> cartdelete(List<Map<String, Object>> cart, Long id,double total) {
+	public ArrayList<Map<String,Object>> cartdelete(List<Map<String, Object>> cart, Long id) {
 		List<Map<String,Object>> cart1 = new ArrayList<Map<String,Object>>();
-		
 		if (cart !=null) {
 			 for (Map<String, Object> item : cart) {
-				 Long goodsid2=Long.valueOf(String.valueOf(item.get("goodsid")));     
+			
+			 Long goodsid2=Long.valueOf(String.valueOf(item.get("goodsid")));     
 			        if (id.equals(goodsid2)) {
 			        	System.out.println("刪除:"+item);
 			        	continue ;
-			        	}
-			   	 Integer quantity = (Integer) item.get("quantity");
-		        	Double price = (Double) item.get("price");
-		            double subtotal = price * quantity;
-		            total +=subtotal;
+			        	}		   	 
 			        cart1.add(item);
 			 }  
 		

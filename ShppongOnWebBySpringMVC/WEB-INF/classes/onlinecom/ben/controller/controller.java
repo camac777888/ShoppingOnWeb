@@ -166,10 +166,11 @@ public String add(@PathVariable(value="pagename") String pagename,
 		@PathVariable(value="id") Long id,Model model, HttpSession session) {	
 	Inventory inventory= inventoryService.InventoryDetail(id);
 	List<Map<String,Object>> cart =(List<Map<String, Object>>) session.getAttribute("cart");		
-	if (cart==null) { 							//	第一次加入購物車
+	
+		if (cart==null) { 							//	第一次加入購物車
 		cart = new ArrayList<Map<String,Object>>();
 		session.setAttribute("cart", cart);
-	}
+		}
 		cartService.cartjudgement(cart,id,inventory);
 		 System.out.println(cart);					//	後台觀察
 
@@ -228,7 +229,15 @@ public String cart(HttpSession session,Model model) {
 public String delete(@PathVariable(value="goodsid")Long id,HttpSession session,Model model) {	
 	List<Map<String,Object>> cart =(List<Map<String, Object>>) session.getAttribute("cart");
 	double	total = 0.0;
-	List<Map<String,Object>> cart1 = cartService.cartdelete(cart, id, total);
+	List<Map<String,Object>> cart1 = cartService.cartdelete(cart, id);
+	
+	 for (Map<String, Object> item : cart1) {
+		   	 Integer quantity = (Integer) item.get("quantity");
+	        	Double price = (Double) item.get("price");
+	            double subtotal = price * quantity;
+	            total +=subtotal;
+		 }  
+	
 	 session.removeAttribute("cart");
 		model.addAttribute("total", total);	
 		session.setAttribute("cart", cart1);
@@ -268,15 +277,6 @@ public String logout(HttpSession session) {
 	session.removeAttribute("customer");
 	return "forward:/login.jsp";	
 }
-	
-	
-
-
-
-
-
-
-
 
 }		
 
