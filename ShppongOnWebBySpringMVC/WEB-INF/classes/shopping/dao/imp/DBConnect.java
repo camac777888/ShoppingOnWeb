@@ -1,12 +1,6 @@
 package shopping.dao.imp;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import shopping.dao.CustomerDao;
-import shopping.domain.Customer;
 
 
 
